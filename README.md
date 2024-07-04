@@ -34,18 +34,13 @@ Ensure you have the following installed:
 ### Steps
 
 #### Clone the Repository
-```bash
-Frontend Setup
-bash
-Copier le code
 cd frontend
 npm install
 npm start
 This will start the React development server. Open http://localhost:3000 to view it in the browser.
 
-Backend Setup
+### Backend Setup
 bash
-Copier le code
 cd backend
 composer install
 Ensure your web server is configured to serve the backend API. Place the backend directory in your web server's root directory. For example, if using Apache, move the backend directory to /var/www/html/chess-api.
