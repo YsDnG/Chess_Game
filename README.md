@@ -34,26 +34,35 @@ Ensure you have the following installed:
 ### Steps
 
 #### Clone the Repository
+
+bash
+git clone https://github.com/your-username/chess-game.git
+cd chess-game 
+
+### Frontend Setup
 cd frontend
 npm install
 npm start
-This will start the React development server. Open http://localhost:3000 to view it in the browser.
 
 ### Backend Setup
-bash
+
 cd backend
 composer install
+
 Ensure your web server is configured to serve the backend API. Place the backend directory in your web server's root directory. For example, if using Apache, move the backend directory to /var/www/html/chess-api.
 
-Usage
-Access the frontend at http://localhost:3000.
-The backend API should be accessible at http://localhost/chess-api.
-Future Enhancements
-Implement user authentication and multiplayer support.
-Add AI opponent using a chess engine.
-Enhance the UI with animations and additional features.
-Contributing
+### Usage
+
+- Access the frontend at http://localhost:3000.
+- The backend API should be accessible at http://localhost/chess-api.
+
+### Future Enhancements
+ - Implement user authentication and multiplayer support.
+ - Add AI opponent using a chess engine.
+ - Enhance the UI with animations and additional features.
+
+### Contributing
 Feel free to fork this repository and submit pull requests. Any contributions, whether it's bug fixes, enhancements, or new features, are welcome!
 
-License
+### License
 This project is open-source and available under the MIT License. See the LICENSE file for more details.
