@@ -40,14 +40,14 @@ git clone https://github.com/your-username/chess-game.git
 cd chess-game 
 
 ### Frontend Setup
-cd frontend
-npm install
-npm start
+ - cd frontend
+ - npm install
+ - npm start
 
 ### Backend Setup
 
-cd backend
-composer install
+- cd backend
+- composer install
 
 Ensure your web server is configured to serve the backend API. Place the backend directory in your web server's root directory. For example, if using Apache, move the backend directory to /var/www/html/chess-api.
 
