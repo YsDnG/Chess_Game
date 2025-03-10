@@ -1,0 +1,222 @@
+/* src/App.css */
+:root 
+{
+  --main-color-1 :#121212; /* noir profond*/
+  --main-color-2 :#1E1E1E; /* (Header, cartes, éléments secondaires)*/
+  --interact:#2D2D2D; /* (Légère distinction pour les éléments interactifs)*/
+  --main-color-4: #783F8E;
+  --main-color-5: #4F1271;
+
+  --text-principal:#FFFFFF;
+  --text-secondaire:#D4D4D4;
+
+  --button : #007AFF;
+  --validation-succes : #00C853;
+  --erreur-annulations:#FF5252;
+
+}
+
+.Card
+{
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 0.3em;
+  max-width: 30vw;
+  max-height: 15vh;
+  font-size: 0.75em;
+  background-color: var(--interact);
+
+}
+
+.App-header 
+{
+  background-color: var(--main-color-2);
+  width: 100vw;
+  height: 9vh;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.What-Abt
+{
+  display: flex;
+  justify-content: center;
+  
+  align-items: center;
+  gap: 0.5em;
+  color: var(--text-principal);
+}
+.onglet
+{
+  width: 30vw;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1em;
+  
+
+}
+
+button{
+  background-color: var(--interact);
+  border: 2px solid #444444;
+  color: var(--text-principal) ;
+  font-size: 0,5em;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+button:hover {
+  color: var(--text-secondaire);
+  text-decoration: underline ;
+}
+p{
+  max-width: 600px;
+  margin: 0 auto 24px;
+  font-size: 18px;
+  color: #D4D4D4;
+  line-height: 1.6;
+}
+
+
+.App {
+  display: flex;
+  justify-content:baseline;
+  flex-direction: column;
+  align-items: center;
+  background-color:var(--main-color-1);
+  min-height: 100vh;
+  min-width: 100vw;
+  font-family: 'Courier New', Courier, monospace;
+  gap: 2em;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+ 
+}
+
+
+.game-id
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color-2);
+  border: 2px solid #444444;
+  color: #444444;
+  font-size: 0,5em;
+  padding: 1em;
+  border-radius: 10px;
+  cursor: pointer;
+ 
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 2em;
+}
+
+
+.menu-multi 
+{
+  width: 100vw;
+  
+  display: flex;
+  justify-content: left;
+  align-items: top;
+  padding-left: 5em;
+  gap: 0.5em;
+  font-family: 'Courier New', Courier, monospace;
+
+}
+
+
+.chessboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  flex: 2;
+}
+
+
+
+.reset-btn {
+  background-color: var(--main-color-2);
+  border: 2px solid #444444;
+  color: #444444;
+  font-size: 0,5em;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Arial', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reset-btn:hover {
+  background-color: var(--main-color-2);
+  color: #f0f0f0;
+  box-shadow: 0 6px 8px rgba(8, 11, 146, 0.15);
+}
+
+.reset-btn:active {
+  background-color: #333333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+.game-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  background-color: var(--main-color-2);
+  color: var(--text-secondaire);
+  border: 2px solid var(--main-color-2);
+  border-radius: 5px;
+  padding: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.chessboard-disabled{
+  opacity: 0.5;  
+  pointer-events: none;  
+}
+
+.display
+{
+  display: flex;
+  justify-content: center;
+  justify-content: center;
+  gap: 1em;
+  
+}
+
+.move-recap-component
+{
+  flex: 1;
+  background-color: var(--main-color-2);
+  border-radius: 5px;
+  padding: 5px;
+  max-height: 500px;
+  width: 25vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.5em;
+  min-height: 500px;
+}
+
+.display-move-recap
+{
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  max-width: auto;
+  padding: 5px;
+}
