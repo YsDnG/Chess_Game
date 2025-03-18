@@ -1,14 +1,13 @@
 /* src/App.css */
 :root 
 {
-  --main-color-1 :#121212; /* noir profond*/
-  --main-color-2 :#1E1E1E; /* (Header, cartes, éléments secondaires)*/
-  --interact:#2D2D2D; /* (Légère distinction pour les éléments interactifs)*/
-  --main-color-4: #783F8E;
-  --main-color-5: #4F1271;
+  --background--1:#2A2B2A; /* noir profond*/
+  --background--multi:#778b77;
+  --background--2 :#706C61; /* (Header, cartes, éléments secondaires)*/
+  --interact:#E5446D; /* (Légère distinction pour les éléments interactifs)*/
 
-  --text-principal:#FFFFFF;
-  --text-secondaire:#D4D4D4;
+  --text-main:#F8F4E3;
+  --text-second:#FF8966;
 
   --button : #007AFF;
   --validation-succes : #00C853;
@@ -16,21 +15,67 @@
 
 }
 
+.App {
+  display: flex;
+  justify-content:baseline;
+  flex-direction: column;
+  align-items: center;
+  background-color:var(--background--1);
+  min-height: 100vh;
+  min-width: 100vw;
+  font-family: 'Courier New', Courier, monospace;
+  gap: 2em;
+  color: var(--text-second);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.Multi
+{
+  background-color: var(--background--multi);
+}
+
 .Card
 {
+  color: var(--text-main);
   border-radius: 5px;
-  border: 1px solid white;
+  border: 1px solid var(--text-second);
   padding: 0.3em;
   max-width: 30vw;
   max-height: 15vh;
-  font-size: 0.75em;
-  background-color: var(--interact);
+  height: 15vh;
+  font-size: 0.70em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background--2);
 
 }
 
+.Card:hover
+{
+  transform: scale(1.05);
+  gap: 2em;
+  text-decoration: none;
+}
+
+.Card p :hover
+{
+  transform: scale(0.9);
+}
+.Card h2:hover
+{
+  transform: scale(1.1);
+}
+
+.Card > *:hover{
+  color: var(--text-second);
+}
+
+
 .App-header 
 {
-  background-color: var(--main-color-2);
+  background-color: var(--background--2);
   width: 100vw;
   height: 9vh;
   
@@ -44,8 +89,8 @@
   justify-content: center;
   
   align-items: center;
-  gap: 0.5em;
-  color: var(--text-principal);
+  gap: 1.2em;
+  color: var(--text-main);
 }
 .onglet
 {
@@ -54,14 +99,12 @@
   flex-direction: row;
   align-items: flex-end;
   gap: 1em;
-  
-
 }
 
 button{
-  background-color: var(--interact);
-  border: 2px solid #444444;
-  color: var(--text-principal) ;
+  background-color: var(--background--2);
+  border: 2px solid var(--text-second);
+  color: var(--text-second) ;
   font-size: 0,5em;
   padding: 10px 20px;
   border-radius: 10px;
@@ -71,33 +114,21 @@ button{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 button:hover {
-  color: var(--text-secondaire);
+  color: var(--text-second);
   text-decoration: underline ;
+  background-color: var(--background--1);
 }
+
 p{
   max-width: 600px;
   margin: 0 auto 24px;
   font-size: 18px;
-  color: #D4D4D4;
+  color: var(--text-main);
   line-height: 1.6;
 }
 
 
-.App {
-  display: flex;
-  justify-content:baseline;
-  flex-direction: column;
-  align-items: center;
-  background-color:var(--main-color-1);
-  min-height: 100vh;
-  min-width: 100vw;
-  font-family: 'Courier New', Courier, monospace;
-  gap: 2em;
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
- 
-}
+
 
 
 .game-id
@@ -105,9 +136,9 @@ p{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--main-color-2);
-  border: 2px solid #444444;
-  color: #444444;
+  background-color: var(--background-color-2);
+  border: 2px solid var(--text-second);
+  color: var(--interact);
   font-size: 0,5em;
   padding: 1em;
   border-radius: 10px;
@@ -138,16 +169,22 @@ p{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1em;
   flex: 2;
+  gap:1em;
 }
 
 
+.chessboard-container > * {
+  flex: 1; /* Permet aux enfants de grandir également */
+  display: flex; /* Si besoin que les enfants soient flexibles eux aussi */
+  justify-content: center;
+  align-items: center;
+}
+
 
 .reset-btn {
-  background-color: var(--main-color-2);
-  border: 2px solid #444444;
-  color: #444444;
+  border: 2px solid var(--text-second);
+  color: var(--text-second);
   font-size: 0,5em;
   padding: 10px 20px;
   border-radius: 10px;
@@ -158,13 +195,13 @@ p{
 }
 
 .reset-btn:hover {
-  background-color: var(--main-color-2);
-  color: #f0f0f0;
+  background-color: var(--interact);
+  color: var(--text-second);
   box-shadow: 0 6px 8px rgba(8, 11, 146, 0.15);
 }
 
 .reset-btn:active {
-  background-color: #333333;
+  background-color: var(--text-second);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -175,9 +212,9 @@ p{
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  background-color: var(--main-color-2);
-  color: var(--text-secondaire);
-  border: 2px solid var(--main-color-2);
+  background-color: var(--background--2);
+  color: var(--text-second);
+  border: 2px solid var(--text-second);
   border-radius: 5px;
   padding: 0.25em;
   margin-bottom: 0.25em;
@@ -200,7 +237,7 @@ p{
 .move-recap-component
 {
   flex: 1;
-  background-color: var(--main-color-2);
+  background-color: var(--background--2);
   border-radius: 5px;
   padding: 5px;
   max-height: 500px;
@@ -210,6 +247,10 @@ p{
   gap: 0.2em;
   padding: 0.5em;
   min-height: 500px;
+  color: var(--text-main);
+}
+h4{
+  color: var(--text-second);
 }
 
 .display-move-recap

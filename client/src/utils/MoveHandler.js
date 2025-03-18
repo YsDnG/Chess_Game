@@ -26,9 +26,9 @@ export const onPieceClick = (game,square,setSquareStyles,setSelectedSquare,selec
         setPossibleMoves([]);  // Réinitialiser les mouvements possibles
         // setGameStatus(gameCopy.status)
 
-        socket.send(
-          JSON.stringify({ type: 'makeMove', gameId, move})
-        );
+        if (socket && gameId) {
+          socket.send(JSON.stringify({ type: 'makeMove', gameId, move }));
+        }
         setMoves([...historicmoves, `  ${gameCopy.move.piece}.${gameCopy.move.from} -> ${gameCopy.move.piece}.${gameCopy.move.san}`]);
         if (gameCopy.status === "Échec et mat") {
           setIsGameOver(true);  // Marquer la fin du jeu
@@ -55,7 +55,7 @@ export const onPieceClick = (game,square,setSquareStyles,setSelectedSquare,selec
  
 };
 // Gérer le drag-and-drop pour déplacer les pièces
-export const onPieceDrop = (game, sourceSquare, targetSquare, setGame, setSquareStyles, setGameStatus,setIsGameOver,setMoves,historicmoves) => {
+export const onPieceDrop = (game, sourceSquare, targetSquare, setGame, setSquareStyles, setGameStatus,setIsGameOver,setMoves,historicmoves,socket,gameId) => {
   
   const gameCopy = handleMove(game, sourceSquare, targetSquare,setGameStatus);  // Utiliser handleMove
   
@@ -63,11 +63,22 @@ export const onPieceDrop = (game, sourceSquare, targetSquare, setGame, setSquare
   
     setGame(gameCopy.valueMove);  // Mettre à jour l'état du jeu avec la copie
     setSquareStyles({});  // Réinitialiser les styles après le déplacement
-    //setGameStatus(gameCopy.status)
-    console.log(gameCopy.status)
+    setGameStatus(gameCopy.status)
+    
+  // Définition  du mouvement avant de l'envoyer
+  const move = {
+    from: sourceSquare,
+    to: targetSquare,
+    promotion: 'q' // Optionnel pour les pions
+  };
+
+
     setMoves([...historicmoves, `  ${gameCopy.move.piece}.${gameCopy.move.from} -> ${gameCopy.move.piece}.${gameCopy.move.san}`]);
     if (gameCopy.status === "Échec et mat") {
       setIsGameOver(true);  // Marquer la fin du jeu
+    }
+    if (socket && gameId) {
+      socket.send(JSON.stringify({ type: 'makeMove', gameId, move }));
     }
 
   } else {

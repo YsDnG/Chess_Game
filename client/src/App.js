@@ -5,6 +5,7 @@ import './App.css';
 import React, { useState,useEffect } from 'react';
 import { Home, BookOpen, Users } from "lucide-react";
 import { Card, CardContent } from "./components/Card.js";
+import { div } from 'framer-motion/client';
 
 
 
@@ -14,25 +15,35 @@ const App = () => {
   const [enteredGameId, setEnteredGameId] = useState(''); // Pour stocker l'ID saisi par l'utilisateur
   const [connectedPlayers, setConnectedPlayers] = useState(0);
   const [playerColor, setPlayerColor] = useState('w'); // Couleur du joueur (blanc/noir)
+  const[multi,setmulti]= useState(false)
 
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:8080');
     setSocket(ws);
+    
+    ws.onopen = () => {
+      console.log("✅ Connecté au serveur WebSocket.");
+    };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      if (data.type === 'gameCreated') {
-        console.log('Partie créée avec l\'ID :', data.gameId);
-        setGameId(data.gameId); // Stocke l'ID dans l'état
+    
+      if (data.type === "gameCreated" || data.type === "gameJoined") {
+        console.log("🎲 Partie active avec ID :", data.gameId);
+        setGameId(data.gameId); // Met à jour l'ID de la partie
+        localStorage.setItem("gameId", data.gameId); // Sauvegarde pour recharger la page
+      }
+
+      if (data.type === "gameStart") {
+        console.log("🚀 La partie commence !");
       }
     };
-    
-
-    return () => ws.close();
   }, []);
 
-  const createGame = () => {
-    socket.send(JSON.stringify({ type: 'createGame' }));
+  const findOrCreateGame = () => {
+    console.log("📤 Recherche ou création d'une partie...");
+    socket.send(JSON.stringify({ type: "findOrCreateGame" }));
+    setmulti(true)
   };
 
   const joinGame = () => {
@@ -46,10 +57,9 @@ const App = () => {
     }
   };
   
-  
-
   return (
-    <div className="App">
+  
+    <div className={`App ${multi ? "Multi" : ""}`}>
 
       <header className="App-header">
       <h1>♟ Chess4Beginners</h1>
@@ -64,27 +74,34 @@ const App = () => {
       <div className='What-Abt'>
      
         {/* Section Apprendre */}
-        <Card className="Card">
+        {!multi &&
+        <Card className="Card Learn">
           <CardContent>
-            <BookOpen className="text-[#007AFF] mb-2" size={32} />
-            <h2 className="text-xl font-semibold">Apprendre</h2>
-            <p className="text-[#D4D4D4] mt-2">Découvrez les bases des échecs et améliorez votre stratégie.</p>
+            <BookOpen className="icon" size={34} />
+            <h2>Apprendre</h2>
+            <p>Découvrez les bases des échecs et améliorez votre stratégie.</p>
           </CardContent>
         </Card>
+        }
 
-        {/* Section S'entraîner */}
-        <Card className="Card">
+        {!multi &&
+        <Card className="Card Train">
           <CardContent>
-            <Home className="text-[#00C853] mb-2" size={32} />
+            <Home size={34} />
             <h2 className="text-xl font-semibold">S'entraîner</h2>
             <p className="text-[#D4D4D4] mt-2">Pratiquez contre l'ordinateur et améliorez votre niveau.</p>
           </CardContent>
         </Card>
+        }
+        
 
         {/* Section Affronter */}
-        <Card className="Card">
+        <Card 
+        className="Card Versus"
+        onClick={findOrCreateGame}
+        >
           <CardContent>
-            <Users className="text-[#FF5252] mb-2" size={32} />
+            <Users size={34} />
             <h2 className="text-xl font-semibold">Affronter</h2>
             <p className="text-[#D4D4D4] mt-2">Jouez en ligne contre d'autres débutants et mettez vos compétences à l'épreuve.</p>
           </CardContent>
@@ -92,16 +109,15 @@ const App = () => {
       
 
       </div>
-          
+       
 
 
    
       
-      <ChessboardComponent
-        socket={socket}
-        gameId={gameId}
-      />
-      
+      <ChessboardComponent 
+      key={gameId || "solo"} 
+      socket={gameId ? socket : null} 
+      gameId={gameId} />
 
     
     </div>

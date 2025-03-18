@@ -5,7 +5,7 @@ import { createNewGame } from '../utils/GameState';
 import { Chess } from 'chess.js';
 import MoveRecapComponents from './MoveRecapComponents';
 
-const ChessboardComponent = ({ socket, gameId, playerColor }) => {
+const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
   const [game, setGame] = useState(createNewGame());
   const [squareStyles, setSquareStyles] = useState({});
   const [selectedSquare, setSelectedSquare] = useState(null);
@@ -16,7 +16,7 @@ const ChessboardComponent = ({ socket, gameId, playerColor }) => {
 
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket|| !gameId) return; // Mode solo, aucun WebSocket actif
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
@@ -64,18 +64,29 @@ const ChessboardComponent = ({ socket, gameId, playerColor }) => {
   return (
     <div className='display'>
     <div className={`chessboard-container ${isGameOver ? 'inactive' : ''}`}>
-     <Chessboard
+     <Chessboard 
       position = { game.fen()}
+
         boardWidth={500}
-        customBoardStyle={{ borderRadius: '4px', boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`}}
+
+        customBoardStyle =
+        {{ 
+          borderRadius: '4px', 
+          boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`,
+        }}
+        boardWrapperStyle={{
+          width: 'auto',   // Empêche l'étirement à 100%
+          maxWidth: '500px',  // Force une largeur max
+          margin: '0 auto'   // Centre le board
+        }}
         onSquareClick={(square) => 
           !isGameOver && onPieceClick(game, square, setSquareStyles, setSelectedSquare, selectedSquare, possibleMoves, setPossibleMoves, setGame,setGameStatus,setIsGameOver,setMoves,moves,socket,gameId)
         }
         onPieceDrop={(sourceSquare, targetSquare) => 
-          !isGameOver && onPieceDrop(game, sourceSquare, targetSquare, setGame, setSquareStyles,setGameStatus,setIsGameOver,setMoves,moves)  // Appel pour le drag-and-drop
+          !isGameOver && onPieceDrop(game, sourceSquare, targetSquare, setGame, setSquareStyles,setGameStatus,setIsGameOver,setMoves,moves,socket,gameId)  // Appel pour le drag-and-drop
         }
         customSquareStyles={squareStyles}
-        className={isGameOver ? 'chessboard-disabled' : ''} 
+        className={isGameOver ? 'chessboard-disabled' : 'chess_board'} 
       />
       
     <div className="game-status">
