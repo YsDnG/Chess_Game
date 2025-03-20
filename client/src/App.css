@@ -32,7 +32,12 @@
 
 .Multi
 {
-  background-color: var(--background--multi);
+  background-image: url("./ressource/img/chess_background_n2.png");
+  background-size: cover; /* Couvre toute la page */
+  background-repeat: no-repeat; /* Pas de répétition */
+  background-position: center center; /* Centre l'image */
+  width: 100vw;
+  height: 100vh;
 }
 
 .Card
@@ -57,6 +62,7 @@
   transform: scale(1.05);
   gap: 2em;
   text-decoration: none;
+  padding: 2em;
 }
 
 .Card p :hover
@@ -86,11 +92,11 @@
 .What-Abt
 {
   display: flex;
-  justify-content: center;
-  
+  justify-content:space-around;
   align-items: center;
   gap: 1.2em;
   color: var(--text-main);
+  
 }
 .onglet
 {
@@ -126,10 +132,6 @@ p{
   color: var(--text-main);
   line-height: 1.6;
 }
-
-
-
-
 
 .game-id
 {
@@ -171,6 +173,14 @@ p{
   align-items: center;
   flex: 2;
   gap:1em;
+}
+
+.board_status_btn
+{
+  display: flex;
+  gap: 2em;
+  justify-content: space-evenly;
+  
 }
 
 
@@ -229,8 +239,9 @@ p{
 {
   display: flex;
   justify-content: center;
-  justify-content: center;
-  gap: 1em;
+  align-items: center; /* Assurer l'alignement en haut */
+  gap: 2em;
+  width: 100vw;
   
 }
 
@@ -241,13 +252,16 @@ p{
   border-radius: 5px;
   padding: 5px;
   max-height: 500px;
-  width: 25vw;
+  max-width: 12em;
+  width: 15vw;
   display: flex;
   flex-direction: column;
   gap: 0.2em;
   padding: 0.5em;
   min-height: 500px;
   color: var(--text-main);
+  opacity: 0.85;
+  margin-right: 50px;
 }
 h4{
   color: var(--text-second);

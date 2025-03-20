@@ -1,6 +1,8 @@
 const WebSocket = require("ws");
 const { v4: uuidv4 } = require("uuid");
 const { Chess } = require("chess.js"); // Assurez-vous que Chess.js est installé avec `npm install chess.js`
+const { type } = require("@testing-library/user-event/dist/type");
+
 
 const wss = new WebSocket.Server({ port: 8080 });
 
@@ -30,17 +32,19 @@ wss.on("connection", (ws) => {
         // Envoyer la confirmation aux deux joueurs que la partie démarre
         game.players.forEach((player) =>
           player.ws.send(
-            JSON.stringify({ type: "gameStart", gameId: existingGameId })
+            JSON.stringify({ type: "gameStart", gameId: existingGameId, player:game.players.color})
           )
         );
 
         console.log(`👥 Un deuxième joueur a rejoint la partie ${existingGameId}`);
+
       } else {
         // Aucune partie disponible, création d'une nouvelle partie
         const gameId = uuidv4(); // Générer un ID unique
         games[gameId] = {
           players: [{ ws, color: "w" }], // Le créateur joue les blancs
           state: new Chess(), // État du jeu
+          isGameOver: false,
         };
 
         ws.send(JSON.stringify({ type: "gameCreated", gameId, color: "w" }));
@@ -59,13 +63,14 @@ wss.on("connection", (ws) => {
           if (move) {
             console.log("✅ Mouvement validé :", move);
             const fen = game.state.fen();
-
+           
             // Diffuser le mouvement aux autres joueurs
             game.players.forEach((player) => {
               player.ws.send(JSON.stringify({
                 type: "move",
                 gameId: data.gameId,
                 move: {
+                  piece :move.piece,
                   from: move.from,
                   to: move.to,
                   promotion: move.promotion || null
@@ -81,7 +86,38 @@ wss.on("connection", (ws) => {
         }
       }
     }
+
+    if (data.type === "abandon") {
+      const game = games[data.gameId];
+    
+      if (game) {
+        const quittingPlayer = game.players.find(p => p.ws === ws);
+        
+        if (!quittingPlayer) {
+          console.log("🚨 Erreur : Impossible de trouver le joueur qui abandonne.");
+          return;
+        }
+    
+        game.isGameOver = true;
+    
+        game.players.forEach(player => {
+          player.ws.send(JSON.stringify({
+            type: "gameOver",
+            winner: quittingPlayer.color === "b" ? "Les Blancs gagnent" : "Les Noirs gagnent",
+          }));
+        });
+    
+        console.log(`🏆 Partie terminée ! Gagnant : ${quittingPlayer.color === "w" ? "Noirs" : "Blancs"}`);
+      }
+    }
+    
+
+
+
+
   });
+
+ 
 
   // Gérer la déconnexion des joueurs
   ws.on("close", () => {

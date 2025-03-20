@@ -5,7 +5,7 @@ import { createNewGame } from '../utils/GameState';
 import { Chess } from 'chess.js';
 import MoveRecapComponents from './MoveRecapComponents';
 
-const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
+const ChessboardComponent = ({ socket, gameId, playerColor}) => {
   const [game, setGame] = useState(createNewGame());
   const [squareStyles, setSquareStyles] = useState({});
   const [selectedSquare, setSelectedSquare] = useState(null);
@@ -25,10 +25,11 @@ const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
           const gameCopy = new Chess(game.fen());
           gameCopy.move(data.move);
           setGame(gameCopy);
+          
     
           setMoves((prevMoves) => [
             ...prevMoves,
-            `${data.move.piece}.${data.move.from} -> ${data.move.piece}.${data.move.san}`
+            `${data.move.piece}.${data.move.from} -> ${data.move.piece}.${data.move.to}`
           ]);
     
           setGameStatus(gameCopy.isCheckmate()
@@ -38,10 +39,16 @@ const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
             : 'En cours: Au noir de jouer'
           );
         }
+
+
+      if (data.type === "gameOver") {
+        console.log("📩 Réception de gameOver :", data);
+        setGameStatus(data.winner); // Afficher le message de victoire/défaite
+        setIsGameOver(true); // Désactiver l'échiquier
+      }
         
       }  catch (error) {
 
-        console.error('Erreur de je sais pas quoi:', error);
             return null;
         
       }
@@ -52,18 +59,33 @@ const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
 
   
 
-  const handleReset = () => {
-    setGame(new Chess());
-    setGameStatus("En cours: Au blanc de jouer");
-    setIsGameOver(false);  // Réinitialiser la fin de partie
+  const handleReset = (isAbandon = false) => {
+    if (isAbandon) {
+      const result = playerColor === "w" ? "Victoire des Noirs !" : "Victoire des Blancs !";
+      setGameStatus(result);
+      socket.send(JSON.stringify({ 
+        type: "abandon", 
+        gameId, 
+        playerColor 
+      }));
+    } else {
+      setGameStatus("En cours: Au blanc de jouer");
+    }
+    if (!isAbandon) {
+      setGame(new Chess()); // Réinitialiser seulement en cas de reset, pas d'abandon !
+    }
+    setIsGameOver(isAbandon); // Si abandon => partie terminée
     setMoves([]);
   };
+  
 
 
 
   return (
     <div className='display'>
+      <div className='board_status_btn'>
     <div className={`chessboard-container ${isGameOver ? 'inactive' : ''}`}>
+    
      <Chessboard 
       position = { game.fen()}
 
@@ -80,10 +102,10 @@ const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
           margin: '0 auto'   // Centre le board
         }}
         onSquareClick={(square) => 
-          !isGameOver && onPieceClick(game, square, setSquareStyles, setSelectedSquare, selectedSquare, possibleMoves, setPossibleMoves, setGame,setGameStatus,setIsGameOver,setMoves,moves,socket,gameId)
+          !isGameOver && onPieceClick(game, square, setSquareStyles, setSelectedSquare, selectedSquare, possibleMoves, setPossibleMoves, setGame,setGameStatus,setIsGameOver,setMoves,moves,socket,gameId,playerColor)
         }
         onPieceDrop={(sourceSquare, targetSquare) => 
-          !isGameOver && onPieceDrop(game, sourceSquare, targetSquare, setGame, setSquareStyles,setGameStatus,setIsGameOver,setMoves,moves,socket,gameId)  // Appel pour le drag-and-drop
+          !isGameOver && onPieceDrop(game, sourceSquare, targetSquare, setGame, setSquareStyles,setGameStatus,setIsGameOver,setMoves,moves,socket,gameId,playerColor)  // Appel pour le drag-and-drop
         }
         customSquareStyles={squareStyles}
         className={isGameOver ? 'chessboard-disabled' : 'chess_board'} 
@@ -92,13 +114,19 @@ const ChessboardComponent = ({ socket, gameId, playerColor, clma}) => {
     <div className="game-status">
         <h3> {gameStatus} </h3>
     </div>
-    <button onClick={handleReset}
-              className={'reset-btn'}>
-        Reset
+   { 
+      <button onClick={() => handleReset(!socket ? false : true)} className="reset-btn">
+      {!socket ? "Reset" : "Abandonner"}
       </button>
-    </div>  
-    <MoveRecapComponents move={moves} />
+
+    }
     </div>
+     <MoveRecapComponents move={moves} />
+     </div>
+
+    </div>  
+  
+   
     
   );
 };
