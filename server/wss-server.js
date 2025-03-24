@@ -1,19 +1,53 @@
+const fs = require("fs");
+const https = require("https");
 const WebSocket = require("ws");
 const { v4: uuidv4 } = require("uuid");
-const { Chess } = require("chess.js"); // Assurez-vous que Chess.js est installé avec `npm install chess.js`
-const { type } = require("@testing-library/user-event/dist/type");
+const { Chess } = require("chess.js");
 
+const cert = fs.readFileSync("ssl/localhost-cert.pem");
+const key = fs.readFileSync("ssl/localhost-key.pem");
 
-const wss = new WebSocket.Server({ port: 8080 });
+// ✅ Serveur HTTPS pour WSS
+const server = https.createServer({
+  cert,
+  key,
+}, (req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("✅ Serveur WebSocket HTTPS en ligne !");
+});
+
+// ✅ WebSocket Server encapsulé dans HTTPS
+const wss = new WebSocket.Server({ server });
 
 let games = {}; // Stocke les parties en cours
 
-wss.on("connection", (ws) => {
-  console.log("✅ Nouveau joueur connecté");
+server.listen(8080, "0.0.0.0", () => {
+  console.log("🚀 Serveur HTTPS + WebSocket sécurisé (`wss://`) en écoute sur le port 8080");
+});
+
+wss.on("connection", (ws,req) => {
+  const ip = req.socket.remoteAddress;
+  console.log("✅ Nouveau joueur connecté depuis", ip);
+
 
   ws.on("message", (message) => {
-    const data = JSON.parse(message);
-    console.log("📩 Message reçu :", data);
+    let data;
+  
+    try {
+      const allowedTypes = ["findOrCreateGame", "makeMove", "abandon"];
+
+      data = JSON.parse(message);
+  
+      if (!allowedTypes.includes(data.type)){
+        throw new Error("Message invalide : `type` manquant ou incorrect.");
+      }
+    } catch (err) {
+      console.warn("🚫 Message rejeté :", err.message);
+      ws.send(JSON.stringify({ type: "error", message: "Format de message invalide." }));
+      ws.close(); // Fermer la connexion pour éviter les abus
+      return;
+    }
+
 
     if (data.type === "findOrCreateGame") {
       // Vérifier s'il existe une partie avec un seul joueur en attente
@@ -134,4 +168,6 @@ wss.on("connection", (ws) => {
       }
     });
   });
+
+
 });

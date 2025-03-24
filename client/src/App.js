@@ -18,7 +18,13 @@ const App = () => {
   const[multi,setmulti]= useState(false)
   
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8080');
+    const isLocal= window.location.hostname ==="localhost"
+    const protocol = isLocal ? 'ws' :'wss'
+    const host = isLocal ?"localhost:8080" :"5432-2a02-8434-dd20-2d01-b15e-2fcb-89fb-5aa1.ngrok-free.app"
+
+    console.log(`${protocol}://${host}`)
+
+    const ws = new WebSocket(`${protocol}://${host}`);
     setSocket(ws);
     
     ws.onopen = () => {
