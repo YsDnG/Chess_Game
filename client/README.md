@@ -1,68 +1,125 @@
-# Chess Game
+# ♟️ Chess Game - Entraînement en ligne pour débutants
 
-## Overview
-This is a personal project that showcases a fully functional chess game using modern web technologies. The frontend is built with React, providing a dynamic and interactive user experience, while the backend is developed using PHP to handle the game's logic and API requests. This project serves as a demonstration of my skills in full-stack web development and is intended to be part of my professional portfolio.
+Bienvenue dans mon projet de jeu d'échecs en ligne pour débutants ! Ce projet vise à offrir une expérience simple, intuitive et immersive pour apprendre, s'entraîner et affronter d'autres joueurs en ligne. Il s'agit d'un projet personnel orienté démonstration technique, que je présente dans mon portfolio et CV.
 
-## Features
-- **Interactive Chessboard**: A visually appealing chessboard built with `react-chessboard` that allows users to move pieces with drag-and-drop functionality.
-- **Game Logic**: The game logic is managed using `chess.js`, ensuring all moves are validated and the game state is accurately maintained.
-- **Backend API**: A simple PHP-based API to handle game states and interactions.
-- **Cross-Origin Support**: Configured CORS to allow seamless interaction between the React frontend and PHP backend.
+---
 
-## Technologies Used
+## 🚀 Fonctionnalités principales
+
+- Interface moderne avec palette sombre et accent dynamique
+- Mode local (solo) et mode versus (multijoueur en ligne)
+- Récapitulatif des coups joués (move list)
+- Reconnexion automatique à une partie
+- Notifications de victoire, d'échec et d'abandon
+
+---
+
+## 🧱 Stack Technique
+
 ### Frontend
-- **React**: A JavaScript library for building user interfaces.
-- **react-chessboard**: A React component for rendering the chessboard.
-- **chess.js**: A library for chess game logic.
+
+- React 18
+- TailwindCSS (v4)
+- react-chessboard (composant visuel de l'échiquier)
+- WebSocket natif pour les communications temps réel
+- Déploiement via GitHub Pages
 
 ### Backend
-- **PHP**: A server-side scripting language for API development.
-- **Composer**: A dependency manager for PHP.
 
-### Others
-- **Node.js & npm**: For managing frontend dependencies and running the development server.
-- **Apache**: A web server to host the PHP backend.
+- Node.js (serveur WebSocket personnalisé)
+- `ws` pour le WebSocket server
+- `chess.js` pour la logique de jeu
+- Certificats SSL générés via `mkcert` (test local HTTPS)
+- Tunnel public créé avec `Ngrok` pour exposition en ligne
 
-## Setup and Installation
+---
 
-### Prerequisites
-Ensure you have the following installed:
-- Node.js and npm
-- PHP and Composer
-- A web server like Apache or Nginx
+## 🌐 Mode en ligne (via GitHub Pages + Ngrok)
 
-### Steps
+1. Le front est déployé sur GitHub Pages.
+2. Le serveur local (WebSocket HTTPS) est lancé sur la machine via :
+   ```bash
+   node wss-server.js
+   ```
+3. Un tunnel HTTPS est ouvert avec :
+   ```bash
+   ngrok http https://localhost:8080
+   ```
+4. L'URL `wss://xxxxx.ngrok-free.app` est utilisée dans le front pour se connecter.
 
-#### Clone the Repository
+> Remarque : l'URL Ngrok change à chaque session (version gratuite), donc le front doit être redéployé ou adapté dynamiquement.
 
-bash
-git clone https://github.com/your-username/chess-game.git
-cd chess-game 
+---
 
-### Frontend Setup
- - cd frontend
- - npm install
- - npm start
+## 🛠 Installation en local
 
-### Backend Setup
+### Prérequis
 
-- cd backend
-- composer install
+- Node.js 18+
+- mkcert (pour créer les certificats SSL locaux)
+- Ngrok (compte gratuit suffisant)
 
-Ensure your web server is configured to serve the backend API. Place the backend directory in your web server's root directory. For example, if using Apache, move the backend directory to /var/www/html/chess-api.
+### Lancer le serveur
 
-### Usage
+```bash
+cd server
+node wss-server.js
+```
 
-- Access the frontend at http://localhost:3000.
-- The backend API should be accessible at http://localhost/chess-api.
+### Lancer le front
 
-### Future Enhancements
- - Implement user authentication and multiplayer support.
- - Add AI opponent using a chess engine.
- - Enhance the UI with animations and additional features.
+```bash
+cd client
+npm install
+npm start
+```
 
-### Contributing
-Feel free to fork this repository and submit pull requests. Any contributions, whether it's bug fixes, enhancements, or new features, are welcome!
+---
 
-### License
-This project is open-source and available under the MIT License. See the LICENSE file for more details.
+## 📁 Structure du projet
+
+```
+chess_game/
+├── client/          # Front React
+├── server/          # Serveur WebSocket
+│   ├── ssl/         # Certificats SSL
+│   └── wss-server.js
+└── README.md
+```
+
+---
+
+## 📚 Objectif du projet
+
+Ce projet a pour but de :
+
+- Pratiquer les WebSockets sécurisés en Node.js
+- Gérer une logique de jeu temps réel
+- Mettre en place une interface utilisateur moderne et fonctionnelle
+- Créer un projet démonstratif présentable dans un contexte professionnel (CV / portfolio)
+
+---
+
+## 📌 TODO / Améliorations futures
+
+- Gestion dynamique de l'URL Ngrok (via input ou config)
+- Sauvegarde des parties (localStorage ou backend)
+- Authentification joueur
+- Ajout de niveaux d'IA (mode solo)
+
+---
+
+## 👨‍💻 Auteur
+
+> **@ysdng**\
+> Dev Web passionné par les interfaces interactives et la communication temps réel.
+
+> Portfolio : en cours...\
+> Contact : [ysdngdev@gmail.com](mailto\:ysdngdev@gmail.com)
+
+---
+
+Merci pour votre intérêt ! ✨
+
+N'hésitez pas à cloner, tester, améliorer ou étoiler le repo ⭐
+
