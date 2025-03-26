@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Made%20with-React-61DAFB?logo=react" alt="React" />
   <img src="https://img.shields.io/badge/Chess%20Engine-chess.js-green" alt="chess.js" />
   <img src="https://img.shields.io/badge/Realtime-WebSocket-blue" alt="WebSocket" />
-  <img src="https://img.shields.io/badge/Styled%20with-TailwindCSS-38B2AC?logo=tailwindcss" alt="TailwindCSS" />
+  <!-- <img src="https://img.shields.io/badge/Styled%20with-TailwindCSS-38B2AC?logo=tailwindcss" alt="TailwindCSS" /> -->
   <img src="https://img.shields.io/github/last-commit/ysdng/Chess_Game" alt="Last commit" />
   <img src="https://img.shields.io/github/license/ysdng/Chess_Game" alt="License" />
   <img src="https://img.shields.io/badge/status-in%20progress-yellow" alt="Status" />
