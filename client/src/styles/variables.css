@@ -1,0 +1,15 @@
+:root 
+{
+  --background--1:#2A2B2A; /* noir profond*/
+  --background--multi:#778b77;
+  --background--2 :#706C61; /* (Header, cartes, éléments secondaires)*/
+  --interact:#E5446D; /* (Légère distinction pour les éléments interactifs)*/
+
+  --text-main:#F8F4E3;
+  --text-second:#FF8966;
+
+  --button : #007AFF;
+  --validation-succes :  #3B2C27 ;
+  --erreur-annulations:#FF5252;
+
+}

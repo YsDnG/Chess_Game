@@ -82,8 +82,8 @@ const ChessboardComponent = ({ socket, gameId, playerColor}) => {
 
 
   return (
-    <div className='display'>
-      <div className='board_status_btn'>
+    <div className='game-section'>
+      <div className='board_recap-container'>
     <div className={`chessboard-container ${isGameOver ? 'inactive' : ''}`}>
     
      <Chessboard 

@@ -1,0 +1,23 @@
+
+.chessboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+    gap:1em;
+  }
+  
+  .chessboard-container > * {
+    flex: 1; /* Permet aux enfants de grandir également */
+    display: flex; /* Si besoin que les enfants soient flexibles eux aussi */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .chessboard-disabled{
+    opacity: 0.5;  
+    pointer-events: none;  
+  }
+  

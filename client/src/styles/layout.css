@@ -1,0 +1,70 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  p{
+    max-width: 600px;
+    margin: 0 auto 24px;
+    font-size: 18px;
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+
+h4{
+    color: var(--text-second);
+  }
+
+
+
+.App {
+    display: flex;
+    justify-content:baseline;
+    flex-direction: column;
+    align-items: center;
+    background-color:var(--background--1);
+    min-height: 100vh;
+    min-width: 100vw;
+    font-family: 'Courier New', Courier, monospace;
+    gap: 2em;
+    color: var(--text-second);
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+.cards-section
+{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  gap: 1.2em;
+  color: var(--text-main);
+  
+}
+
+                                        /********************** MULTI ***************/
+
+.Multi
+{
+  background-image: url("../ressource/img/chess_background_n2.png");
+  background-size: cover; /* Couvre toute la page */
+  background-repeat: no-repeat; /* Pas de répétition */
+  background-position: center center; /* Centre l'image */
+  width: 100vw;
+  height: 100vh;
+}
+
+.menu-multi 
+{
+  width: 100vw;
+  display: flex;
+  justify-content: left;
+  align-items: top;
+  padding-left: 5em;
+  gap: 0.5em;
+  font-family: 'Courier New', Courier, monospace;
+
+}
+
+

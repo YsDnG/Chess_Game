@@ -1,0 +1,60 @@
+.game-section
+{
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Assurer l'alignement en haut */
+  gap: 2em;
+  width: 100vw;
+  
+}
+
+.board_recap-container
+{
+  display: flex;
+  gap: 2em;
+  justify-content: space-evenly;
+  
+}
+
+.move-recap-component
+{
+  flex: 1;
+  background-color: var(--background--2);
+  border-radius: 5px;
+  padding: 5px;
+  max-height: 500px;
+  max-width: 12em;
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.5em;
+  min-height: 500px;
+  color: var(--text-main);
+  opacity: 0.85;
+  margin-right: 50px;
+}
+
+
+.display-move-recap
+{
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  max-width: auto;
+  padding: 5px;
+}
+
+.game-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background-color: var(--background--2);
+    color: var(--text-second);
+    border: 2px solid var(--text-second);
+    border-radius: 5px;
+    padding: 0.25em;
+    margin-bottom: 0.25em;
+  }

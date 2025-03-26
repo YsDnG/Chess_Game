@@ -63,34 +63,24 @@ const App = () => {
     setmulti(true)
   };
 
-  // const joinGame = () => {
-  //   console.log('Tentative de rejoindre la partie :', enteredGameId);
-  //   if (enteredGameId.trim() !== '') {
-  //   setGameId(enteredGameId.trim())
+  const backtohomepage=()=>{
 
-  //     socket.send(JSON.stringify({ type: 'joinGame', gameId: enteredGameId }));
-  //   } else {
-  //     alert('Veuillez entrer un ID de partie valide.');
-  //   }
-  // };
+    setmulti(false);
+
+  }
   
   return (
   
     <div className={`App ${multi ? "Multi" : ""}`}>
 
-      <header className="App-header">
-      <h1>♟ Chess4Beginners</h1>
-        <nav>
-          <ul className="onglet">
-            <li><button variant="link" className="text-[#007AFF]">Apprendre</button></li>
-            <li><button variant="link" className="text-[#007AFF]">S'entraîner</button></li>
-            <li><button variant="link" className="text-[#007AFF]">Affronter</button></li>
-          </ul>
-        </nav>
+      <header onClick={backtohomepage}className="App-header">
+      { multi && <span className="home-icon"> <Home /></span>}
+      <h1> <img alt="logo" src='./ressource/img/logo.png'></img> Chess4Beginners</h1>
+     
       </header>
       { 
       !multi &&
-      <div className='What-Abt'>
+      <div className='cards-section'>
      
         {/* Section Apprendre */}
         

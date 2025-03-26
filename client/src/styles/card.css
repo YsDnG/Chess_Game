@@ -1,0 +1,90 @@
+@import '../styles/variables.css';
+
+
+.Card {
+    color: var(--text-main);
+    border-radius: 5px;
+    border: 1px solid var(--text-second);
+    padding: 0.3em;
+    max-width: 30vw;
+    max-height: 15vh;
+    height: 15vh;
+    font-size: 0.70em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background--2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .Card:hover {
+    transform: scale(1.05); /* plus doux */
+    background-color: var(--validation-succes ); /* plus harmonieux que #00C853 */
+    box-shadow: 0 0 10px rgba(255, 137, 102, 0.3);
+  }
+  
+  /* Icône (ex: Lucide) */
+  .Card svg {
+    width: 2.2em;
+    height: 2.2em;
+    max-width: 100%;
+    max-height: 100%;
+    transition: transform 0.3s ease;
+    color: var(--text-second);
+  }
+  
+  .Card:hover svg {
+    transform: scale(1.15);
+  }
+  
+  /* Titre */
+  .Card h2 {
+    color: #FF8966;
+    font-size: 1.5em;
+    margin: 0.2em 0;
+    transition: transform 0.2s ease;
+  }
+  
+  .Card h2:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Texte */
+  .Card p {
+    color: #F8F4E3;
+    font-size: 1.2em;
+    text-align: center;
+    margin: 0.3em 0;
+    line-height: 1.4;
+    transition: transform 0.2s ease;
+  }
+  
+  /* Suppression du hover global sur les enfants */
+  .Card > *:hover {
+    scale: 1;
+    color: inherit;
+  }
+  
+  /* Responsive */
+  @media screen and (max-width: 768px) {
+    .Card {
+      max-width: 90vw;
+      height: auto;
+      padding: 1em;
+    }
+  
+    .Card svg {
+      width: 1.8em;
+      height: 1.8em;
+    }
+  
+    .Card h2 {
+      font-size: 1em;
+    }
+  
+    .Card p {
+      font-size: 0.85em;
+    }
+  }
