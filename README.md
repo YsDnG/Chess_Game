@@ -1,8 +1,24 @@
-# ♟ Chess Game - Online Training for Beginners
+# ♟️ Chess Game - Online Training for Beginners
 
-Welcome to my online chess game project for beginners! This project aims to offer a simple, intuitive, and immersive experience to learn, practice, and challenge other players. It is a personal project built as a technical showcase, which I include in my portfolio and CV.
+<p align="center">
+  <img src="https://img.shields.io/badge/Made%20with-React-61DAFB?logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/Chess%20Engine-chess.js-green" alt="chess.js" />
+  <img src="https://img.shields.io/badge/Realtime-WebSocket-blue" alt="WebSocket" />
+  <img src="https://img.shields.io/badge/Styled%20with-TailwindCSS-38B2AC?logo=tailwindcss" alt="TailwindCSS" />
+  <img src="https://img.shields.io/github/last-commit/ysdng/Chess_Game" alt="Last commit" />
+  <img src="https://img.shields.io/github/license/ysdng/Chess_Game" alt="License" />
+  <img src="https://img.shields.io/badge/status-in%20progress-yellow" alt="Status" />
+</p>
 
-🔄 Switch language: [🇫🇷 Version française](README.fr.md)
+> 🔄 Switch language: [🇫🇷 Version française](README.fr.md)
+
+---
+
+## 🌐 Live Demo
+
+> ⚠️ Multiplayer mode is not functional in this preview — the demo is UI-only.
+
+🎮 [Try the UI Demo on GitHub Pages](https://ysdng.github.io/Chess_Game)
 
 ---
 
@@ -51,7 +67,7 @@ Welcome to my online chess game project for beginners! This project aims to offe
 
 ---
 
-## 💪 Local Setup
+## 💻 Local Setup
 
 ### Prerequisites
 - Node.js 18+
