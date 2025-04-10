@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/Chess_Game/static/css/main.2493569d.css",
-    "main.js": "/Chess_Game/static/js/main.ce2233ff.js",
+    "main.css": "/Chess_Game/static/css/main.d5ad3638.css",
+    "main.js": "/Chess_Game/static/js/main.cd1f3a53.js",
     "static/media/chess_background_n2.png": "/Chess_Game/static/media/chess_background_n2.625523b9812c8cd22878.png",
     "index.html": "/Chess_Game/index.html",
-    "main.2493569d.css.map": "/Chess_Game/static/css/main.2493569d.css.map",
-    "main.ce2233ff.js.map": "/Chess_Game/static/js/main.ce2233ff.js.map"
+    "main.d5ad3638.css.map": "/Chess_Game/static/css/main.d5ad3638.css.map",
+    "main.cd1f3a53.js.map": "/Chess_Game/static/js/main.cd1f3a53.js.map"
   },
   "entrypoints": [
-    "static/css/main.2493569d.css",
-    "static/js/main.ce2233ff.js"
+    "static/css/main.d5ad3638.css",
+    "static/js/main.cd1f3a53.js"
   ]
 }
