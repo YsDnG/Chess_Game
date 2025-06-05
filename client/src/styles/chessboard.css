@@ -3,9 +3,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     flex: 2;
-    gap:1em;
+    gap:0.5em;
+    max-width: 600px;
+
   }
   
   .chessboard-container > * {

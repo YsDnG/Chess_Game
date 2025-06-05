@@ -1,11 +1,16 @@
-const fs = require("fs");
-const https = require("https");
-const WebSocket = require("ws");
-const { v4: uuidv4 } = require("uuid");
-const { Chess } = require("chess.js");
-
+import fs from 'fs';
+import fsp from 'fs/promises';
+import path from 'path';
+import https from 'https';
+import {WebSocketServer} from 'ws';
+import { v4 as uuidv4 } from 'uuid';
+import { Chess } from 'chess.js';
+import { data } from 'autoprefixer';
+import { error } from 'console';
 const cert = fs.readFileSync("ssl/localhost-cert.pem");
 const key = fs.readFileSync("ssl/localhost-key.pem");
+
+const filepath = path.join(__dirname,'adressIp.txt');
 
 // ✅ Serveur HTTPS pour WSS
 const server = https.createServer({
@@ -17,13 +22,17 @@ const server = https.createServer({
 });
 
 // ✅ WebSocket Server encapsulé dans HTTPS
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocketServer({ server });
 
 let games = {}; // Stocke les parties en cours
 
-server.listen(8080, "0.0.0.0", () => {
+server.listen(8080, "0.0.0.0", async() => {
   console.log("🚀 Serveur HTTPS + WebSocket sécurisé (`wss://`) en écoute sur le port 8080");
-});
+  waitForIpFile()
+})
+
+
+
 
 wss.on("connection", (ws,req) => {
   const ip = req.socket.remoteAddress;
@@ -171,3 +180,25 @@ wss.on("connection", (ws,req) => {
 
 
 });
+
+
+async function waitForIpFile()
+{
+    while(true)
+  {
+    try 
+    {
+      await fsp.access(filepath)
+      const ip = await fsp.readFile(filepath,'utf-8');
+      console.log(`✅ Tunnel ngrok détecté : ${ip}`);
+      break;
+    } 
+
+    catch(error){
+        console.log("En attente de la création du fichier addressIp.txt")
+        await new Promise(res => setTimeout(res,1000));
+    }
+  }
+ 
+
+}

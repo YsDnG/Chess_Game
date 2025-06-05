@@ -5,7 +5,7 @@ export function createNewGame() {
 }
 
 // Adaptation pour prendre explicitement des arguments `from` et `to`
-export function handleMove(game, from, to,gameStatus) {
+export function handleMove(game, from, to,setGameStatus) {
    
     try
     {
@@ -16,11 +16,11 @@ export function handleMove(game, from, to,gameStatus) {
         to,
         promotion: 'q'  // Promotion automatique pour simplifier
       });
-      // Utilisation de la condition ternaire pour mettre à jour le statut du jeu
+      
       if (gameCopy.turn() === 'b') {
-        gameStatus('En cours : Au noir de jouer');
+        setGameStatus('En cours : Au noir de jouer');
       } else {
-        gameStatus('En cours : Au blanc de jouer');
+        setGameStatus('En cours : Au blanc de jouer');
       }
 
      
@@ -30,16 +30,16 @@ export function handleMove(game, from, to,gameStatus) {
         let status;
         if (gameCopy.isCheckmate()) {
           if(move.color ==='w')
-            gameStatus('Échec et mat : Victoire des blancs');
+            setGameStatus('Échec et mat : Victoire des blancs');
           else
-          gameStatus ("Échec et mat : Vctoire des noirs")
+          setGameStatus ("Échec et mat : Vctoire des noirs")
         } else if (gameCopy.isStalemate()) {
-          gameStatus('Patte (Égalité');
+          setGameStatus('Patte (Égalité');
         } else if (gameCopy.isCheck()) {
           if(move.color ==='w')
-            gameStatus ("Roi noir en échec : Déplacement limités, contrer de l'échec");
+            setGameStatus ("Roi noir en échec : Déplacement limités, contrer de l'échec");
           else
-          gameStatus ("Roi blanc en échec : Déplacement limités, contrer de l'échec");
+          setGameStatus ("Roi blanc en échec : Déplacement limités, contrer de l'échec");
             
         } 
         

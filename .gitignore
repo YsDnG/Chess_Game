@@ -6,6 +6,11 @@ node_modules
 /.pnp
 .pnp.js
 
+
+# ⚙️ Config dev locale
+/local-dev/
+
+
 # testing
 /coverage
 

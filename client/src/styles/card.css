@@ -7,7 +7,7 @@
     border: 1px solid var(--text-second);
     padding: 0.3em;
     max-width: 30vw;
-    max-height: 15vh;
+    max-height: 20vh;
     height: 15vh;
     font-size: 0.70em;
     display: flex;
@@ -20,7 +20,7 @@
   }
   
   .Card:hover {
-    transform: scale(1.05); /* plus doux */
+    transform: scale(1.02); /* plus doux */
     background-color: var(--validation-succes ); /* plus harmonieux que #00C853 */
     box-shadow: 0 0 10px rgba(255, 137, 102, 0.3);
   }
@@ -66,25 +66,7 @@
     scale: 1;
     color: inherit;
   }
+
   
-  /* Responsive */
-  @media screen and (max-width: 768px) {
-    .Card {
-      max-width: 90vw;
-      height: auto;
-      padding: 1em;
-    }
   
-    .Card svg {
-      width: 1.8em;
-      height: 1.8em;
-    }
   
-    .Card h2 {
-      font-size: 1em;
-    }
-  
-    .Card p {
-      font-size: 0.85em;
-    }
-  }

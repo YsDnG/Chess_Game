@@ -1,15 +1,20 @@
-const WebSocket = require("ws");
-const { v4: uuidv4 } = require("uuid");
-const { Chess } = require("chess.js");
+import { WebSocketServer } from "ws";
+import {Chess} from "chess.js"
+import { v4 as uuidv4 } from 'uuid';
 
-const wss = new WebSocket.Server({ port: 8080 }, () => {
-  console.log("🚀 Serveur WebSocket LOCAL lancé sur ws://localhost:8080");
-});
+
+
+const setupGameSocket=(wss)=>{
+
+// const wss = new WebSocketServer({ port: 8080 }, () => {
+//   console.log("🚀 Serveur WebSocket LOCAL lancé sur ws://localhost:8080");
+// });
 
 let games = {}; // Stocke les parties en cours
 
 wss.on("connection", (ws) => {
   console.log("✅ Nouveau joueur connecté depuis --> serverLocal");
+  
 
   ws.on("message", (message) => {
     let data;
@@ -20,15 +25,19 @@ wss.on("connection", (ws) => {
       return;
     }
 
-    console.log("📩 Message reçu :", data);
+    
 
     // Créer ou rejoindre une partie
     if (data.type === "findOrCreateGame") {
+      
       const existingGameId = Object.keys(games).find(
         (gameId) => games[gameId].players.length === 1
       );
 
       if (existingGameId) {
+        ws.color = "b";
+        ws.gameId = existingGameId;
+
         const game = games[existingGameId];
         game.players.push({ ws, color: "b" });
 
@@ -43,10 +52,13 @@ wss.on("connection", (ws) => {
             })
           )
         );
-
         console.log(`👥 Un deuxième joueur a rejoint la partie ${existingGameId}`);
       } else {
+      
+
         const gameId = uuidv4();
+        ws.color = "w";
+        ws.gameId = gameId;
         games[gameId] = {
           players: [{ ws, color: "w" }],
           state: new Chess(),
@@ -95,19 +107,19 @@ wss.on("connection", (ws) => {
     // Abandon
     if (data.type === "abandon") {
       const game = games[data.gameId];
+      console.log("📩 Message reçu :", data.type);
       if (game) {
         const quittingPlayer = game.players.find((p) => p.ws === ws);
         if (!quittingPlayer) {
           console.log("🚨 Impossible de trouver le joueur qui abandonne.");
           return;
         }
-
         game.isGameOver = true;
-
         game.players.forEach((player) => {
           player.ws.send(
             JSON.stringify({
               type: "gameOver",
+              gameId:null,
               winner:
                 quittingPlayer.color === "b"
                   ? "Les Blancs gagnent"
@@ -115,12 +127,11 @@ wss.on("connection", (ws) => {
             })
           );
         });
-
+        delete games[data.gameId];
         console.log(
           `🏆 Partie terminée ! Gagnant : ${
             quittingPlayer.color === "w" ? "Noirs" : "Blancs"
-          }`
-        );
+          } 🗑️ Partie ${data.gameId} supprimée.`);
       }
     }
   });
@@ -137,3 +148,7 @@ wss.on("connection", (ws) => {
     });
   });
 });
+
+}
+
+export default setupGameSocket;

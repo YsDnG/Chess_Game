@@ -13,6 +13,11 @@
     background-color: var(--background--2);
     transition: all 0.3s ease;
     overflow: hidden;
+    max-height: 3vh;
+    max-width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .reset-btn:hover {
@@ -25,4 +30,36 @@
     background-color: var(--text-second);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+
+  .Learn-btn-board
+  {
+    border: 2px solid var(--text-second);
+    font-size: 0.75em;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: var(--text-main);
+    background-color: var(--background--2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Learn-btn-board:hover {
+    transform: scale(1.03); /* plus doux */
+    background-color: var(--validation-succes ); /* plus harmonieux que #00C853 */
+    box-shadow: 0 0 10px rgba(255, 137, 102, 0.3);
+  }
+  
+  .Learn-btn-board:active {
+    background-color: var(--text-second);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
   

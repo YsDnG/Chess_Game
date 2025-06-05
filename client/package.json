@@ -2,33 +2,29 @@
   "name": "chess_game",
   "version": "0.1.0",
   "private": true,
+  
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "autoprefixer": "^10.4.20",
     "chess.js": "^1.0.0-beta.8",
-    "class-variance-authority": "^0.7.1",
     "lucide-react": "^0.479.0",
     "nth-check": "^2.0.1",
-    "postcss": "^8.4.31",
     "react": "^18.3.1",
     "react-chessboard": "^4.6.0",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.5.2",
     "react-scripts": "5.0.1",
     "serialize-javascript": "^6.0.2",
-    "tailwind-variants": "^1.0.0",
-    "tailwindcss": "^4.0.9",
     "web-vitals": "^2.1.4"
   },
-  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -50,9 +46,6 @@
   },
   "homepage": "https://ysdng.github.io/Chess_Game",
   "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "gh-pages": "^6.3.0",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^4.0.9"
+    "gh-pages": "^6.3.0"
   }
 }

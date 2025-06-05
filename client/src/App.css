@@ -1,5 +1,37 @@
 /* src/App.css */
 
+*,*::before,*::after
+{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0; 
+   
+}
+#root {
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+  }
+  
+  .App {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background--1);
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box; /* 🔥 clé ici */
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    gap: 0.5em;
+    color: var(--text-second);
+    text-align: center;
+  }
+  
+  .App > * {
+    padding-left: 2vw;
+  }
+  
+
 
 @import './styles/variables.css';
 @import './styles/layout.css';
@@ -10,6 +42,10 @@
 @import './styles/buttons.css';
 @import './styles/status.css';
 @import './styles/game-section.css';
+@import './styles/media.css';
+@import './styles/popup-overlay.css';
+@import './styles/learn-section.css';
+@import './styles/openingBoard.css';
 
 
 

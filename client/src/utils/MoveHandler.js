@@ -19,7 +19,6 @@ const handleMoveAction = (game, move, setGame, setSquareStyles, setGameStatus, s
 
   setGame(gameCopy.valueMove);
   setSquareStyles({});
-  setGameStatus(gameCopy.status);
 
   setMoves([...historicmoves, `  ${gameCopy.move.piece}.${gameCopy.move.from} -> ${gameCopy.move.piece}.${gameCopy.move.san}`]);
 
@@ -36,7 +35,7 @@ const handleMoveAction = (game, move, setGame, setSquareStyles, setGameStatus, s
 
 
 export const onPieceClick = (game, square, setSquareStyles, setSelectedSquare, selectedSquare, possibleMoves, setPossibleMoves, setGame, setGameStatus, setIsGameOver, setMoves, historicmoves, socket, gameId, playerColor) => {
-  console.log(selectedSquare, " -> ", square);
+  
 
   if (socket && game.turn() !== playerColor) return;
 

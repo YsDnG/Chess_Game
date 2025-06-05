@@ -1,7 +1,6 @@
 body, html {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
   }
 
   p{
@@ -12,36 +11,57 @@ body, html {
     line-height: 1.6;
   }
 
+  h1 {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    gap: 1em ;
+  }
+  img
+   {
+    border-radius: 10px;
+    max-width: 30vw;
+    max-height: 11vh;
+    height: auto;
+    box-shadow: 0px 0px 10px rgba(240, 60, 6, 0.3);
+   }
+
 h4{
     color: var(--text-second);
   }
 
+  .Active
+  {
+    background-color: var(--active) !important;
+  }
+  .Inactive
+  {
+    background-color: var(--inactive) !important;
+  }
+
+ 
 
 
-.App {
+
+  .desktop-display
+  {
     display: flex;
-    justify-content:baseline;
     flex-direction: column;
-    align-items: center;
-    background-color:var(--background--1);
-    min-height: 100vh;
-    min-width: 100vw;
-    font-family: 'Courier New', Courier, monospace;
-    gap: 2em;
-    color: var(--text-second);
-    font-family: Arial, sans-serif;
-    text-align: center;
+    
+    
+    gap: 0.5em;
   }
 
 .cards-section
 {
   display: flex;
-  justify-content:space-around;
   align-items: center;
-  gap: 1.2em;
+  gap: 1em;
   color: var(--text-main);
   
 }
+
+
 
                                         /********************** MULTI ***************/
 
@@ -50,10 +70,11 @@ h4{
   background-image: url("../ressource/img/chess_background_n2.png");
   background-size: cover; /* Couvre toute la page */
   background-repeat: no-repeat; /* Pas de répétition */
-  background-position: center center; /* Centre l'image */
-  width: 100vw;
-  height: 100vh;
+  background-position: 70% bottom;;
+  
 }
+
+
 
 .menu-multi 
 {
@@ -61,7 +82,6 @@ h4{
   display: flex;
   justify-content: left;
   align-items: top;
-  padding-left: 5em;
   gap: 0.5em;
   font-family: 'Courier New', Courier, monospace;
 

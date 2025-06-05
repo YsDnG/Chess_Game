@@ -3,7 +3,7 @@ import React from "react";
 const Card = ({ children, className = "",onClick }) => {
   return (
     
-      <div className={`$cursor-pointer ${className}`} onClick={onClick}>
+      <div className={`${className}`} onClick={onClick}>
         {children}
       </div>
    
