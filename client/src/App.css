@@ -42,10 +42,16 @@
 @import './styles/buttons.css';
 @import './styles/status.css';
 @import './styles/game-section.css';
-@import './styles/media.css';
+
 @import './styles/popup-overlay.css';
 @import './styles/learn-section.css';
 @import './styles/openingBoard.css';
+
+
+
+
+
+@import './styles/media.css';
 
 
 

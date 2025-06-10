@@ -64,7 +64,7 @@ const App = () => {
             socket={gameId ? socket : null}
             gameId={gameId}
             playerColor={playerColor}
-            boardSizePx={boardSizePx} // ATTENTION sizePercent doit être utilisé dans ton ChessboardComponent
+            boardSizePx={boardSizePx} 
             
           />
         </div>

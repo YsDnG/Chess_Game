@@ -6,9 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const setupGameSocket=(wss)=>{
 
-// const wss = new WebSocketServer({ port: 8080 }, () => {
-//   console.log("🚀 Serveur WebSocket LOCAL lancé sur ws://localhost:8080");
-// });
 
 let games = {}; // Stocke les parties en cours
 

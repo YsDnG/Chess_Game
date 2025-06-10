@@ -18,7 +18,7 @@ const pool = new Pool({
     port: 5432,
   });
 
-  app.get('/openings', async (req, res) => {
+  app.get('/api/openings', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM openings');
       res.json(result.rows); // On renvoie les résultats directement au client

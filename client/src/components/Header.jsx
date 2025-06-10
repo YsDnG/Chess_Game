@@ -11,7 +11,6 @@ const Header =() =>{
         style={{ width: "auto", height: "auto",borderRaduis :"2px"}}  
       />
       <h1>
-    
       Master the Basics, Beat the Best !
       </h1>
       

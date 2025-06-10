@@ -12,92 +12,57 @@ const WebSocketProvider =({children})=>{
     const [playerColor, setPlayerColor] = useState('w'); // Couleur du joueur (blanc/noir)
     const [errorPopup, setErrorPopup] = useState(null);
     
+useEffect(() => {
+  const isLocal = window.location.hostname === "localhost";
+  const protocol = isLocal ? "ws" : "wss";
+  const host = isLocal ? "localhost:8080" : "chess-game-backend-1p1l.onrender.com/ws";
+  let ws;
 
-      useEffect(() => {
-        const isLocal = window.location.hostname === "localhost";
-        const protocol = isLocal ? "ws" : "wss";
-        let ws;
-    
-     
-        const setupWebSocket = (host) => {
-    
-            ws = new WebSocket(`${protocol}://${host}`);
-            setSocket(ws);
-    
-          ws.onopen = () => {
-            console.log("✅ Connecté au serveur WebSocket.");
-          };
-         
-      
-          ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            
-            
-      
-            if (data.type === "gameCreated" ){
-              console.log("🎲 Partie active avec ID :", data.gameId);
-              setGameId(data.gameId);
-              localStorage.setItem("gameId", data.gameId);
-              setPlayerColor(data.color);
-            }
+  const setupWebSocket = (url) => {
+    ws = new WebSocket(`${protocol}://${url}`);
+    setSocket(ws);
 
-            if (data.type === "gameJoined" ){
-              console.log("🎲 Partie active avec ID :", data.gameId," Le joueur qui rejoins à la couleur:",data.color);
-              setGameId(data.gameId);
-              localStorage.setItem("gameId", data.gameId);
-              setPlayerColor(data.color);
-              
-            }
-            if (data.type === "gameStart") {
-              console.log("🚀 La partie commence !");
-            }
-      
-            if (data.type === "gameOver") {
-              console.log("📩 Réception de gameOver :", data);
-            }
-          };
-    
-          ws.onclose = () => {
-            console.warn("🔌 Connexion WebSocket fermée.");
-            
-            // 🔁 Reconnexion automatique après délai
-            setTimeout(() => {
-              console.log("🔁 Tentative de reconnexion WebSocket...");
-              setupWebSocket(host);
-            }, 3000); // retry après 3s
-          };
-        };
-    
-      
-        if (isLocal) {
-          const host = "localhost:8080";
-            setupWebSocket(host);
-        } else {
-          fetch("https://backend-public-ngrok.onrender.com/api/ngrok")
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.url) {
-                const url = new URL(data.url);
-                const host = url.host;
-                setupWebSocket(host);
-              } else {
-                console.warn("Pas d'URL ngrok disponible !");
-              }
-            })
-            .catch((err) => {
-              console.error("Erreur lors de la récupération de l'URL ngrok :", err);
-              return null;
-            });
-        }
-    
-      
-     
-      
-        return () => {
-            if (ws) ws.close();
-          };
-        
-      }, []);
+    ws.onopen = () => {
+      console.log("✅ Connecté au serveur WebSocket.");
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === "gameCreated") {
+        console.log("🎲 Partie créée :", data.gameId);
+        setGameId(data.gameId);
+        localStorage.setItem("gameId", data.gameId);
+        setPlayerColor(data.color);
+      }
+
+      if (data.type === "gameJoined") {
+        console.log("🤝 Partie rejointe :", data.gameId);
+        setGameId(data.gameId);
+        localStorage.setItem("gameId", data.gameId);
+        setPlayerColor(data.color);
+      }
+
+      if (data.type === "gameOver") {
+        console.log("📩 Réception de gameOver :", data);
+      }
+    };
+
+    ws.onclose = () => {
+      console.warn("🔌 Connexion WebSocket fermée.");
+      setTimeout(() => {
+        console.log("🔁 Reconnexion...");
+        setupWebSocket(url);
+      }, 3000);
+    };
+  };
+
+  setupWebSocket(host);
+
+  return () => {
+    if (ws) ws.close();
+  };
+}, []);
+
 
 
       const findOrCreateGame = () => {

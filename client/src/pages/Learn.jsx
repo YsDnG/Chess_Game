@@ -55,7 +55,7 @@ const Learn =()=>{
         const openingsFromDb = async()=>{
             try{
 
-              const API_BASE_URL = process.env.NODE_ENV === 'development'? 'http://localhost:8080': 'https://ton-backend.onrender.com';
+              const API_BASE_URL = process.env.NODE_ENV === 'development'? 'http://localhost:3001': 'https://chess-game-backend-1p1l.onrender.com';
 
             const response = await fetch(`${API_BASE_URL}/api/openings`);
 
